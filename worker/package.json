@@ -1,0 +1,17 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.3",
+    "redis": "^3.0.2"
+  },
+  "keywords": [],
+  "author": "Caleb Nasio",
+  "license": "ISC"
+}

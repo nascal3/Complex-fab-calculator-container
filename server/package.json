@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "sequelize": "^5.21.6",
+    "redis": "^3.0.2",
+    "cors": "^2.8.5",
+    "nodemon": "^2.0.3"
+  },
+  "keywords": [],
+  "author": "Caleb Nasio",
+  "license": "ISC"
+}
