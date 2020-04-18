@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  mysqlDB:
+    image: 'mysql:latest'
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./.mysql-data/db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=fab
+      - MYSQL_USER=nascal
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - '3306:3306'
+    security_opt:
+      - seccomp:unconfined
+    expose:
+      - '3306'
+
+  redis:
+    image: 'redis:latest'
+
+  server:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - USER=nascal
+      - HOST=mysqlDB
+      - DATABASE=fab
+      - PASSWORD=password
+      - PORT=3306
