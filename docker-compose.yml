@@ -6,7 +6,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
-      - ./.mysql-data/db:/var/lib/mysql
+      - ./mysqlDB:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=fab
       - MYSQL_USER=nascal
@@ -39,3 +39,19 @@ services:
       - DATABASE=fab
       - PASSWORD=password
       - PORT=3306
+
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes:
+      - /app/node_modules
+      - ./worker:/app

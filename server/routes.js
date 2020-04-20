@@ -13,18 +13,18 @@ const redis = require('./redisConfig');
      res.send('hi');
    });
 
-   app.get('/values/all', async (req, res) => {
+   app.get('/api/values/all', async (req, res) => {
      const values = await Values.findAll();
      res.status(200).json({'data': values});
    });
 
-   app.get('/values/current', async (req, res) => {
+   app.get('/api/values/current', async (req, res) => {
      redis.redisClient.hgetall('values', (err, values) => {
        res.status(200).json({'data': values});
      });
    });
 
-   app.post('/values', async (req, res) => {
+   app.post('/api/values', async (req, res) => {
      const index = parseInt(req.body.index);
 
      if (index > 40) return res.status(422).send('Index value too high');
