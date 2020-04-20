@@ -19,6 +19,14 @@ services:
     expose:
       - '3306'
 
+  adminer:
+    image: adminer:latest
+    restart: always
+    environment:
+      - ADMINER_DEFAULT_SERVER=mysqlDB
+    ports:
+      - '8080:8080'
+
   nginx:
     restart: always
     build:
