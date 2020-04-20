@@ -19,10 +19,18 @@ services:
     expose:
       - '3306'
 
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./ngnix
+    ports:
+    - '3000:80'
+
   redis:
     image: 'redis:latest'
 
-  server:
+  api:
     build:
       dockerfile: Dockerfile.dev
       context: ./server
@@ -55,3 +63,6 @@ services:
     volumes:
       - /app/node_modules
       - ./worker:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379

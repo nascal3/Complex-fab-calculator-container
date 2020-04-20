@@ -4,21 +4,23 @@
       Fib Calculator
     </div>
     <div class="content-area">
-      <form v-model="valid" @submit.prevent="insertIndex">
+      <form @submit.prevent="insertIndex">
         <span>Enter your index:</span>
         <label>
-          <input type="text" v-model="index">
+          <input type="text" v-model="indexNumber">
         </label>
         <button type="submit">Submit</button>
       </form>
 
       <div class="seen">
         <div class="seen-title">Indices I have seen:</div>
-        <span
-          class="seen-indices"
-          v-for="(number, i) in seenIndexes"
-          :key="i"
-        >{{number}}</span>
+        <template v-if="seenIndexes.length">
+          <span
+            class="seen-indices"
+            v-for="(number, i) in seenIndexes"
+            :key="i"
+          >{{number.number}}</span>
+        </template>
       </div>
 
       <div class="values">
@@ -36,13 +38,12 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'HelloWorld',
   data: () => ({
-    valid: false,
-    index: '0'
+    indexNumber: '0'
   }),
   computed: {
     ...mapGetters({
@@ -56,17 +57,17 @@ export default {
       fetchValues: 'fetchValues',
       submitIndex: 'submitIndex'
     }),
-    getInitValues() {
+    getInitValues () {
       this.fetchValues()
       this.fetchIndexes()
     },
-    async insertIndex() {
-      let intIndex = parseInt(this.index)
-      await this.submitIndex({'index': intIndex})
-      this.index=''
+    async insertIndex () {
+      const payload = { index: this.indexNumber }
+      await this.submitIndex(payload)
+      this.indexNumber = ''
     }
   },
-  created() {
+  created () {
     this.getInitValues()
   }
 }
