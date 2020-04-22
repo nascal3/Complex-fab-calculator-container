@@ -13,6 +13,7 @@ after_success:
   - docker build -t ngnix ./ngnix
   - docker build -t server ./server
   - docker build -t worker ./worker
+
   #  Login docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password--stdin
   #  Push images into docker hub
