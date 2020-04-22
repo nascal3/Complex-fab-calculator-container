@@ -25,7 +25,7 @@ services:
     environment:
       - ADMINER_DEFAULT_SERVER=mysqlDB
     ports:
-      - '8080:8080'
+      - '8181:8181'
 
   nginx:
     restart: always
