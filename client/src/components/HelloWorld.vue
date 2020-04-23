@@ -1,58 +1,135 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+  <section>
+    <div class="title">
+      Fib Calculator
+    </div>
+    <div class="content-area">
+      <form @submit.prevent="insertIndex">
+        <span>Enter your index:</span>
+        <label>
+          <input type="text" v-model="indexNumber">
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+
+      <div class="seen">
+        <div class="seen-title">Indices I have seen:</div>
+        <template v-if="seenIndexes.length">
+          <span
+            class="seen-indices"
+            v-for="(number, i) in seenIndexes"
+            :key="i"
+          >{{number.number}}</span>
+        </template>
+      </div>
+
+      <div class="values">
+        <div class="values-title">Calculated Values:</div>
+        <div
+          class="values-calculated"
+          v-for="(value, i) in values"
+          :key="i"
+        >
+          For index {{i}} | calculated {{value}}
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  data: () => ({
+    indexNumber: '0'
+  }),
+  computed: {
+    ...mapGetters({
+      values: 'values',
+      seenIndexes: 'seenIndexes'
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetchIndexes: 'fetchIndexes',
+      fetchValues: 'fetchValues',
+      submitIndex: 'submitIndex'
+    }),
+    getInitValues () {
+      this.fetchValues()
+      this.fetchIndexes()
+    },
+    async insertIndex () {
+      const payload = { index: this.indexNumber }
+      await this.submitIndex(payload)
+      this.indexNumber = ''
+    }
+  },
+  created () {
+    this.getInitValues()
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+ .title {
+   width: 100%;
+   color: white;
+   font-size: 24px;
+   font-weight: 500;
+   background-color: orangered;
+   padding: 10px 0 10px 0;
+   text-align: center;
+ }
+
+ .content-area {
+   padding-top: 25px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+
+   form {
+     span:first-child {
+       margin-right: 10px;
+       font-weight: 600;
+     }
+     button {
+       margin-left: 10px;
+     }
+   }
+
+   .seen {
+     margin-top: 20px;
+
+     &-title {
+       font-weight: 600;
+       font-size: 16px;
+       padding-bottom: 10px;
+     }
+
+     &-indices {
+       font-style: italic;
+     }
+     &-indices:before {
+       content: ', ';
+     }
+   }
+
+   .values {
+     margin-top: 20px;
+
+     &-title {
+       font-weight: 600;
+       font-size: 16px;
+       padding-bottom: 10px;
+     }
+
+     &-calculated {
+       font-style: italic;
+     }
+   }
+ }
 </style>

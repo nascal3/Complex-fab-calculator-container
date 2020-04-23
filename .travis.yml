@@ -1,0 +1,29 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t complex-fab -f ./client/Dockerfile.dev ./client
+
+install:
+  - npm rebuild node-sass
+
+script:
+  - docker run complex-fab npm run test:unit -- --coverage
+
+after_success:
+  - docker build -t nascal3/client ./client
+  - docker build -t nascal3/nginx ./nginx
+  - docker build -t nascal3/server ./server
+  - docker build -t nascal3/worker ./worker
+
+  #  Login docker CLI
+  - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD" docker.io
+  #  Push images into docker hub
+  - docker push nascal3/client
+  - docker push nascal3/nginx
+  - docker push nascal3/server
+  - docker push nascal3/worker
+
+
+
