@@ -3,8 +3,7 @@ services:
   - docker
 
 before_install:
-  - npm install -g npm@4
-  -  docker build -t complex-fab -f ./client/Dockerfile.dev ./client
+  - docker build -t complex-fab -f ./client/Dockerfile.dev ./client
 install:
   - npm rebuild node-sass
   - npm install
@@ -18,7 +17,7 @@ after_success:
   - docker build -t server ./server
   - docker build -t worker ./worker
   #  Login docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password--stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #  Push images into docker hub
   - docker push client
   - docker push nginx
