@@ -21,10 +21,10 @@ after_success:
   #  Login docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password--stdin
   #  Push images into docker hub
-  - -docker push client
-  - -docker push nginx
-  - -docker push server
-  - -docker push worker
+  - docker push client
+  - docker push nginx
+  - docker push server
+  - docker push worker
 
 
 
