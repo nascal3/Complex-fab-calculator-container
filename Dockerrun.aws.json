@@ -1,0 +1,9 @@
+{
+  "AWSEBDockerrunVersions": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "nascal3/complex-client"
+    }
+  ]
+}
