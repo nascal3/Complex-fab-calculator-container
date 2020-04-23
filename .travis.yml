@@ -6,23 +6,22 @@ before_install:
   - docker build -t complex-fab -f ./client/Dockerfile.dev ./client
 install:
   - npm rebuild node-sass
-  - npm install
 
 script:
   - docker run complex-fab npm run test:unit -- --coverage
 
 after_success:
-  - docker build -t client ./client
-  - docker build -t nginx ./nginx
-  - docker build -t server ./server
-  - docker build -t worker ./worker
+  - docker build -t complex/client ./client
+  - docker build -t complex/nginx ./nginx
+  - docker build -t complex/server ./server
+  - docker build -t complex/worker ./worker
   #  Login docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #  Push images into docker hub
-  - docker push client
-  - docker push nginx
-  - docker push server
-  - docker push worker
+  - docker push complex/client
+  - docker push complex/nginx
+  - docker push complex/server
+  - docker push complex/worker
 
 
 
