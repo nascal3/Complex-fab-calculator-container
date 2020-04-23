@@ -11,17 +11,18 @@ script:
   - docker run complex-fab npm run test:unit -- --coverage
 
 after_success:
-  - docker build -t complex/client ./client
-  - docker build -t complex/nginx ./nginx
-  - docker build -t complex/server ./server
-  - docker build -t complex/worker ./worker
+  - docker build -t nascal3/client ./client
+  - docker build -t nascal3/nginx ./nginx
+  - docker build -t nascal3/server ./server
+  - docker build -t nascal3/worker ./worker
   #  Login docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD" docker.io
   #  Push images into docker hub
-  - docker push complex/client
-  - docker push complex/nginx
-  - docker push complex/server
-  - docker push complex/worker
+  - docker push nascal3/client
+  - docker push nascal3/nginx
+  - docker push nascal3/server
+  - docker push nascal3/worker
 
 
 
