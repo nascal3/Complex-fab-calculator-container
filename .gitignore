@@ -46,6 +46,7 @@ client/dist
 
 server/node_modules
 worker/node_modules
+mysqlDB
 jspm_packages/
 
 # TypeScript v1 declaration files
