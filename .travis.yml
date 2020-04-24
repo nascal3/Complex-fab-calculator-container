@@ -30,8 +30,8 @@ deploy:
   region: us-east-2
   app: complex-fab
   env: ComplexFab-env
-  bucket_name: elasticbeanstalk-us-east-2-511328767950
-  bucket_path: docker-complex-fab
+  bucket: elasticbeanstalk-us-east-2-511328767950
+  skip_cleanup: true
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
