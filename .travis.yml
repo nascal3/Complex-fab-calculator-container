@@ -25,5 +25,15 @@ after_success:
   - docker push nascal3/complex-server
   - docker push nascal3/complex-worker
 
-
-
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: complex-fab
+  env: ComplexFab-env
+  bucket_name: elasticbeanstalk-us-east-2-511328767950
+  bucket_path: docker-complex-fab
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
