@@ -9,7 +9,7 @@ services:
       - ./mysqlDB:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=fab
-      - MYSQL_USER=nascal
+      - MYSQL_USER=admin
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
     ports:
@@ -50,7 +50,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - USER=nascal
+      - USER=admin
       - HOST=mysqlDB
       - DATABASE=fab
       - PASSWORD=password
