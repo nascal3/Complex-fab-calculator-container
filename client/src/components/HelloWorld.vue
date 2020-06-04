@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="title">
-      Fib Calculator
+      Fib Calculator V2
     </div>
     <div class="content-area">
       <form @submit.prevent="insertIndex">
