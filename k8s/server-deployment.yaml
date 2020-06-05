@@ -17,3 +17,21 @@ spec:
           image: nascal3/complex-server
           ports:
             - containerPort: 5000
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-servce
+            - name: REDIS_PORT
+              value: '6378'
+            - name: USER
+              value: admin
+            - name: HOST
+              value: mysql-cluster-ip-service
+            - name: PORT
+              value: '3306'
+            - name: DATABASE
+              value: fab
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dbpassword
+                  key: PASSWORD
